@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create Admin User (using firstOrCreate to avoid duplicate errors)
+        // NOTE: These are default development passwords. Change them after deployment!
+        // For production, use stronger passwords or generate random ones.
         User::firstOrCreate(
             ['email' => 'fazli@admin.com'],
             [

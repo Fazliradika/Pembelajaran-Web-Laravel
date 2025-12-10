@@ -47,6 +47,21 @@ DB_PASSWORD=${MYSQLPASSWORD}
 
 This application uses bcrypt for password hashing. All passwords are automatically hashed when stored in the database through Laravel's password casting feature.
 
+### Default Seeder Passwords
+
+The database seeder creates default admin users with weak passwords for development purposes:
+- fazli@admin.com / admin123
+- admin@tokofazli.com / toko123
+
+**IMPORTANT**: These default passwords should be changed immediately after deployment to production. Use the following commands to update passwords:
+
+```bash
+php artisan tinker
+>>> $user = User::where('email', 'fazli@admin.com')->first();
+>>> $user->password = 'your-strong-password-here';
+>>> $user->save();
+```
+
 ## Updated Security Fixes
 
 ### 2024-12-10
