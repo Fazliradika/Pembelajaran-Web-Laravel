@@ -44,7 +44,7 @@ Di Railway Dashboard → Tab **"Variables"**, tambahkan:
 ```env
 APP_NAME=Laravel
 APP_ENV=production
-APP_KEY=base64:XvpUC5EDDWdAS8Re1ydEVYl1o4rZTBZ4ztAIQ5Cpmuo=
+APP_KEY=
 APP_DEBUG=false
 SESSION_DRIVER=database
 CACHE_STORE=database
@@ -53,9 +53,12 @@ LOG_CHANNEL=stack
 LOG_LEVEL=error
 ```
 
-⚠️ **Catatan**: 
+⚠️ **PENTING**: 
+- Generate APP_KEY baru dengan command: `php artisan key:generate --show`
+- Copy hasilnya ke Railway Variables
 - `RAILWAY_PUBLIC_DOMAIN` dan MySQL variables akan auto-inject oleh Railway
 - **JANGAN** set `APP_URL` manual, Railway akan handle otomatis
+- **JANGAN** gunakan APP_KEY dari development/testing di production!
 
 ### 5. Generate Domain
 
