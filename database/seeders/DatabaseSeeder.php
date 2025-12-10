@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             ['email' => 'fazli@admin.com'],
             [
                 'name' => 'Fazli Radika',
-                'password' => 'admin123',
+                'password' => bcrypt('admin123'),
             ]
         );
 
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             ['email' => 'admin@tokofazli.com'],
             [
                 'name' => 'Admin Toko',
-                'password' => 'toko123',
+                'password' => bcrypt('toko123'),
             ]
         );
 
