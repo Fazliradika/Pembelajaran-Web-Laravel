@@ -18,18 +18,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create Admin User
-        User::create([
-            'name' => 'Fazli Radika',
-            'email' => 'fazli@admin.com',
-            'password' => 'admin123',
-        ]);
+        // Create Admin User (using firstOrCreate to avoid duplicate errors)
+        User::firstOrCreate(
+            ['email' => 'fazli@admin.com'],
+            [
+                'name' => 'Fazli Radika',
+                'password' => 'admin123',
+            ]
+        );
 
-        User::create([
-            'name' => 'Admin Toko',
-            'email' => 'admin@tokofazli.com',
-            'password' => 'toko123',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@tokofazli.com'],
+            [
+                'name' => 'Admin Toko',
+                'password' => 'toko123',
+            ]
+        );
 
         // Create Gaming Products
         $products = [
@@ -136,7 +140,10 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($products as $product) {
-            Product::create($product);
+            Product::firstOrCreate(
+                ['nama_produk' => $product['nama_produk']],
+                $product
+            );
         }
 
         // Create Gaming Stores
@@ -174,20 +181,27 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($tokos as $toko) {
-            Toko::create($toko);
+            Toko::firstOrCreate(
+                ['nama_toko' => $toko['nama_toko']],
+                $toko
+            );
         }
 
-        // Create Stock for each product in each store
+        // Create Stock for each product in each store (only if not exists)
         $allProducts = Product::all();
         $allTokos = Toko::all();
 
         foreach ($allTokos as $toko) {
             foreach ($allProducts as $product) {
-                Stok::create([
-                    'product_id' => $product->id,
-                    'toko_id' => $toko->id,
-                    'jumlah_stok' => rand(5, 50), // Random stock between 5-50
-                ]);
+                Stok::firstOrCreate(
+                    [
+                        'product_id' => $product->id,
+                        'toko_id' => $toko->id,
+                    ],
+                    [
+                        'jumlah_stok' => rand(5, 50), // Random stock between 5-50
+                    ]
+                );
             }
         }
     }
